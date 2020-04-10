@@ -1,4 +1,4 @@
-package com.unit.teste.controller;
+package com.teste.deployment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,7 @@
-package com.unit.teste.controller;
+package com.teste.deployment;
 
-import com.unit.teste.model.Pessoa;
-import com.unit.teste.repositores.PessoaRepository;
+import com.teste.model.Pessoa;
+import com.teste.repositores.PessoaRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
