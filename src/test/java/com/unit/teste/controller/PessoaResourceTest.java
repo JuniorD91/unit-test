@@ -1,13 +1,14 @@
-package com.unit.teste;
+package com.unit.teste.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TesteApplicationTests {
+public class PessoaResourceTest {
 
     @Test
-    void contextLoads() {
+    public void testar(){
+        System.out.println("teste");
     }
 
 }
