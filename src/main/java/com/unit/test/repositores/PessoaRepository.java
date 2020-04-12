@@ -1,6 +1,7 @@
-package com.teste.repositores;
+package com.unit.test.repositores;
 
-import com.teste.model.Pessoa;
+
+import com.unit.test.model.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {

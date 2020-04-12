@@ -1,6 +1,8 @@
-package com.teste.model;
+package com.unit.test.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,4 +19,5 @@ public class Pessoa {
     @NotNull
     @Size(min=2, max=255)
     private String nome;
+
 }

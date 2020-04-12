@@ -1,14 +1,14 @@
-package com.teste.deployment;
+package com.unit.test.controller;
 
-import com.teste.model.Pessoa;
-import com.teste.repositores.PessoaRepository;
+import com.unit.test.model.Pessoa;
+import com.unit.test.repositores.PessoaRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
+
 
 @Log4j2
 @AllArgsConstructor
@@ -24,6 +24,7 @@ public class PessoaResource {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Optional<Pessoa> getPessoaByPathVariable(@PathVariable("id") Long id){
         return pessoaRepository.findById(id);
     }
