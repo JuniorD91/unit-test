@@ -30,7 +30,7 @@ public class PessoaResourceTest{
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.nome").value("Joao Carlos")).andReturn();
+                .andExpect(jsonPath("$.nome").value("Joao Carlos"));
     }
 
 }

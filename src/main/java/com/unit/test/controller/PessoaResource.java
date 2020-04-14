@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 @Log4j2
 @AllArgsConstructor
 @RestController
@@ -19,6 +18,7 @@ public class PessoaResource {
     private PessoaRepository pessoaRepository;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Pessoa> getPessoa(){
         return pessoaRepository.findAll();
     }
@@ -30,6 +30,7 @@ public class PessoaResource {
     }
 
     @GetMapping("/byParam")
+    @ResponseStatus(HttpStatus.OK)
     public Optional<Pessoa> getPessoaByRequestParam(@RequestParam("id") Long id){
         return pessoaRepository.findById(id);
     }
@@ -41,6 +42,7 @@ public class PessoaResource {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") Long id){
         pessoaRepository.deleteById(id);
     }
