@@ -25,12 +25,38 @@ public class PessoaResourceTest{
     }
 
     @Test
-    void getPessoaById() throws Exception {
+    void deverRetornarStatus200SeCodigoDaPessoaExistir() throws Exception {
+
         this.mvc.perform(get("/pessoas/1")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.nome").value("Joao Carlos"));
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    void deveRetornarStatus200BuscandoTodosAsPessoas() throws Exception {
+
+        this.mvc.perform(get("/pessoas/")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    void deveRetornarStatus400QuandoPathVariableForInvalido() throws Exception {
+
+        String pathVaribleInvalido = "s";
+
+        this.mvc.perform(get("/pessoas/"+pathVaribleInvalido).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    void deveSalvarPessoaERetornarStatus201() throws Exception {
+        this.mvc.perform(post("/pessoas/").content("{\"nome\" : \"teste 02\"}").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
+
     }
 
 }

@@ -32,7 +32,6 @@ public class PessoaResource {
     }
 
     @GetMapping("/byParam")
-    @ResponseStatus(HttpStatus.OK)
     public Optional<Pessoa> getPessoaByRequestParam(@RequestParam("id") Long id){
         return this.pessoaRepository.findById(id);
     }
@@ -44,7 +43,6 @@ public class PessoaResource {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") Long id){
         this.pessoaRepository.deleteById(id);
     }
