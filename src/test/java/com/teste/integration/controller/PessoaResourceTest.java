@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 @SpringBootTest
 public class PessoaResourceTest{
@@ -27,10 +28,19 @@ public class PessoaResourceTest{
     @Test
     void deverRetornarStatus200SeCodigoDaPessoaExistir() throws Exception {
 
-        this.mvc.perform(get("/pessoas/1")
+        this.mvc.perform(get("/pessoas/{id}",1)
                 .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk());
 
+    }
+
+    @Test
+    void deveRetornarApenasUmaPessoaUsandoRequestParamStatus200() throws Exception{
+        this.mvc.perform(get("/pessoas/").param("nome","Carlos antonio")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -56,6 +66,14 @@ public class PessoaResourceTest{
     void deveSalvarPessoaERetornarStatus201() throws Exception {
         this.mvc.perform(post("/pessoas/").content("{\"nome\" : \"teste 02\"}").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void deveRemoverPessoaERetornarStatus200()throws Exception{
+
+        this.mvc.perform(delete("/pessoas/{id}",1))
+                .andDo(print())
+                .andExpect(status().isOk());
 
     }
 
