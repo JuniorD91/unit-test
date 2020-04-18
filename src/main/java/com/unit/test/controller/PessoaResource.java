@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Log4j2
@@ -28,12 +27,13 @@ public class PessoaResource {
     @GetMapping("/{id}")
     public ResponseEntity<Pessoa> getPessoaByPathVariable(@PathVariable("id") Long id){
         Optional<Pessoa> pessoa = this.pessoaRepository.findById(id);
-        return Objects.isNull(pessoa) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(pessoa.get());
+        return pessoa.isPresent() ? ResponseEntity.ok().body(pessoa.get()):ResponseEntity.notFound().build();
     }
 
     @GetMapping("/byParam")
-    public Optional<Pessoa> getPessoaByRequestParam(@RequestParam("id") Long id){
-        return this.pessoaRepository.findById(id);
+    public ResponseEntity<Pessoa> getPessoaByRequestParam(@RequestParam("id") Long id){
+        Optional<Pessoa> pessoa = this.pessoaRepository.findById(id);
+        return pessoa.isPresent() ? ResponseEntity.ok().body(pessoa.get()):ResponseEntity.notFound().build();
     }
 
     @PostMapping
@@ -43,8 +43,12 @@ public class PessoaResource {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id){
-        this.pessoaRepository.deleteById(id);
+    public ResponseEntity<Pessoa> delete(@PathVariable("id") Long id){
+        Optional<Pessoa> pessoa = this.pessoaRepository.findById(id);
+        if(pessoa.isPresent()){
+            this.pessoaRepository.deleteById(id);
+        }
+        return pessoa.isPresent() ? ResponseEntity.ok().build():ResponseEntity.noContent().build();
     }
 
 }

@@ -28,19 +28,46 @@ public class PessoaResourceTest{
     @Test
     void deverRetornarStatus200SeCodigoDaPessoaExistir() throws Exception {
 
-        this.mvc.perform(get("/pessoas/{id}",1)
+        this.mvc.perform(get("/pessoas/1")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
 
     }
 
     @Test
-    void deveRetornarApenasUmaPessoaUsandoRequestParamStatus200() throws Exception{
-        this.mvc.perform(get("/pessoas/").param("nome","Carlos antonio")
+    void deveRetornar404ParaRecursoPessoaNaoEncontrado() throws Exception {
+
+        this.mvc.perform(get("/pessoas/{id}",100)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    void deveRetornar400ParaIdNull() throws Exception {
+
+        this.mvc.perform(get("/pessoas/"+null)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    void deveRetornarApenasUmaPessoaChamdoDeCarlosAntonioUsandoRequestParamStatus200() throws Exception{
+        this.mvc.perform(get("/pessoas/byParam").param("id","1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void deveRetornarStatus404ParaRecursoPessoaNaoEncontrado() throws Exception{
+        this.mvc.perform(get("/pessoas/byParam").param("id","9999")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -55,9 +82,10 @@ public class PessoaResourceTest{
     @Test
     void deveRetornarStatus400QuandoPathVariableForInvalido() throws Exception {
 
-        String pathVaribleInvalido = "s";
+        this.mvc.perform(get("/pessoas/{id}","s").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
 
-        this.mvc.perform(get("/pessoas/"+pathVaribleInvalido).accept(MediaType.APPLICATION_JSON))
+        this.mvc.perform(get("/pessoas/"+null).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
 
     }
@@ -74,6 +102,15 @@ public class PessoaResourceTest{
         this.mvc.perform(delete("/pessoas/{id}",1))
                 .andDo(print())
                 .andExpect(status().isOk());
+
+    }
+
+    @Test
+    void deveRetornar204SeIdNaoExistir()throws Exception{
+
+        this.mvc.perform(delete("/pessoas/"+999))
+                .andDo(print())
+                .andExpect(status().isNoContent());
 
     }
 
