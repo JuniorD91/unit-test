@@ -3,6 +3,7 @@ package com.unit.test.controller;
 import com.unit.test.model.Pessoa;
 import com.unit.test.repositores.PessoaRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
